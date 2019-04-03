@@ -1,19 +1,60 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
- set the runtime path to include Vundle and initialize
- set rtp+=~/.vim/bundle/Vundle.vim
- call vundle#begin()
-
- Plugin 'VundleVim/Vundle.vim'
-
- Plugin 'tpope/vim-fugitive'
- Plugin 'git://git.wincent.com/command-t.git'
- Plugin 'file:///home/gmarik/path/to/plugin'
- Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
- call vundle#end()            " required
- filetype plugin indent on    " required
- :PluginUpdate
- auto-approve removal
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'vimwiki/vimwiki'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'scrooloose/syntastic'
+Plugin 'posva/vim-vue'
+Plugin 'chrisbra/Colorizer'
+Plugin 'pangloss/vim-javascript'
+Plugin 'Valloric/MatchTagAlways'
+Plugin 'morhetz/gruvbox'
 
 
+call vundle#end()            " required
+syntax on
+filetype plugin indent on
+autocmd FileType vue syntax sync fromstart
+
+
+nmap <C-S-P> :call <SID>SynStack()<CR>
+
+
+function! <SID>SynStack()
+	  if !exists("*synstack")
+		  return
+		endif
+		echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
+endfunc
+
+"custom stuff
+set showcmd
+set showmatch
+set ignorecase
+set smartcase
+set incsearch
+set autowrite
+set hidden
+set mouse=n
+set ttyfast
+set softtabstop=2
+set shiftwidth=2
+set cindent
+set tabstop=2
+set wildmenu
+set whichwrap+=<,>,h,l
+set hlsearch
+set noerrorbells
+set novisualbell
+set number
+"set termguicolors
+
+map <leader>ss :setlocal spell!<cr>
+vmap \ U
+imap <c-l> <esc>dd i
+nnoremap <space> i<space><esc>
+nnoremap <backspace> i<backspace><esc>
+   "colorscheme gruvbox
