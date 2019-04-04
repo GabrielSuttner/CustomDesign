@@ -1,0 +1,27 @@
+When going through and working with a form, the syntax is a little diffent. Here is an example: 
+##############
+<form asp-action="RsvpForm" method="post">
+	<p>
+		<label asp-for="Name">Your name:</label>
+		<input asp-for="Name" />
+	</p>
+	<p>
+		<label asp-for="Email">Your email:</label>
+		<input asp-for="Email" />
+	</p>
+	<p>
+		<label asp-for="Phone">Your phone:</label>
+		<input asp-for="Phone" /></p>
+		Chapter 2 ■ Your First MVC Application 31
+	<p>
+		<label>Will you attend?</label>
+		<select asp-for="WillAttend">
+			<option value="">Choose an option</option>
+			<option value="true">Yes, I'll be there</option>
+			<option value="false">No, I can't come</option>
+		</select>
+	</p>
+	<button type="submit">Submit RSVP</button>
+</form>
+###############
+Everything in this form is connected to a class that connects to RsvpForm. This class is located inside of the Models folder. Because the data types are public they are accessed straight from the html.cs file. 

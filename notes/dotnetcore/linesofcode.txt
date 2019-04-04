@@ -1,0 +1,1 @@
+public bool? willAttend {get; set;} //makes it so that the bool can be null and doesn't have to have a value
