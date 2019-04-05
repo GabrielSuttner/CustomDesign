@@ -1,0 +1,7 @@
+using System.ComponentModel.DataAnnotations;
+	Allows you to create data validators inside of classes,
+		public class Guest response{
+			[Required(ErrorMessage = "Please enter your name")]
+			public string Name {get; set;} //the required above this is bound to the following variable. 
+
+		}	
