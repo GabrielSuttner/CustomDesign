@@ -25,3 +25,32 @@ When going through and working with a form, the syntax is a little diffent. Here
 </form>
 ###############
 Everything in this form is connected to a class that connects to RsvpForm. This class is located inside of the Models folder. Because the data types are public they are accessed straight from the html.cs file. 
+
+M.V.C Stands for model view controller. 
+
+Model - contains all of the data that is needed for the application to run. A model shouldn't contain the styling for the informatin just the information.
+
+View - This is how the information is displayed. 
+
+Controller - this is how the information is being passed from the model to the view. 
+	C# classes
+
+The directory
+	Third party libraries or bootstrap stuff goes inside of the wwwroot folder
+
+Dictionary<int, string> Product;
+	the first paramater of int is the key, so you can use "Product.key" to access the first elements of the arrays.
+
+IEnumerable
+	Returns a list and its read only, .GetEnumerator() is the only method that can be used. 
+
+IEnumerator
+
+########
+public static IEnumerable<Product> FilterByPrice(this IEnumerable<Product> productEnum, decimal minimumPrice){ //keyword this means that this function is going to act as a mask for another class. 
+	foreach (Product prod in productEnum){
+		if ((prod?.Price ??  0) >= minimumPrice){ //prod?.Price ?? 0 means that if the object prod is null then the Price of the null prod will be assigned to 0 instead of throwing an error.
+			yield return prod;   // yield makes it so that when prod is returned the location where it was taken from is remembered and next time FilterByPrice is called the function will start where prod was at.
+		}
+	}
+}

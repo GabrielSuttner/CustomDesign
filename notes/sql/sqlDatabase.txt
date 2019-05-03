@@ -1,0 +1,11 @@
+When making a table, the first column should be a primary key. If you click the primary key column, set "identity Specification" to true inside of the properties window. This will make it so that the primary key incriments as a new value is added. 
+After altering the table, click "update" in the top left corner. this will update the table. 
+
+When connecting to a database, go to the web.config file in the solutions and look under <connectionStrings>. Here is an example of a live connection.
+	<connectionStrings>
+		<add name="HistoryGrantsContext" connectionString="Data Source=fhss-sqlweb2\web2;Initial Catalog=HistoryGrants;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+		  providerName="System.Data.SqlClient"/>
+	</connectionStrings>
+
+	How to find the connection string:
+	Right click on the name of the databse inside of the server explorer. go to properties. Copy and paste the connection string. 

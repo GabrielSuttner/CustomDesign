@@ -1,1 +1,50 @@
 public bool? willAttend {get; set;} //makes it so that the bool can be null and doesn't have to have a value
+
+string name = p?.Name ?? "<No Name>";
+decimal? price = p?.Price ?? 0; 
+
+The first line will assign the variable name with the string <No Name> if the variable hasn't been initialized.
+
+When first initializing a member of a class you can do this, 
+		 public string Category { get; set; } = "Watersports";
+This makes it so that the default value is Watersports if no other value is given. 
+
+	public bool InStock {get; } = true;
+makes it so that the initial value is true and it can't be changed but can be retrieved at any time. 
+
+Like in C, when you want to add a value to a string there are a few ways that you can do it. Here is one:
+	results.Add($"Name: {name}, Price: [price], Related: [relatedName]");
+If variables are going to be intermitted with text, the "" must be after a $. 
+
+When data checking to make sure that the correct data was inputed, the following code works
+	
+if (data[i] is decimal d){
+
+}
+
+this is saying that if data[i] is of data type decimal then d = data[i]
+
+This will also work
+
+	for(int i = 0; i < data.Length; i++){
+		switch(data[i]){
+			case decimal decimalValue:
+				total += decimalValue;
+				break;
+			case int intvalue when intvalue > 50:
+				total += intValue;
+				break;
+		}
+	}
+
+On line 34, if TypeOf(data[i]) == int && intvalue > 50 then do next line. <F9>
+
+
+Filtering by a condition
+
+public static IEnumerable<Product> FilterByPrice(
+		this IEnumerable<Product> productEnum, decimal minimumPrice){
+			if ((prod?.Price ?? 0) >= minimumPrice){
+				yield return prod;
+			}
+		}
