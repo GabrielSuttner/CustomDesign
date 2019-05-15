@@ -48,3 +48,6 @@ public static IEnumerable<Product> FilterByPrice(
 				yield return prod;
 			}
 		}
+
+Request Time: #DateTime.Now.ToString("HH.mm.ss")
+will return the time in the format     ^

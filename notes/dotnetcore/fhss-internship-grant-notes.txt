@@ -1,0 +1,35 @@
+ApplicationDatabaseInterface db = new ApplicationDatabaseInterface(); // creates a new object that holds all of the properties and the connections to all of the databases
+List<Semester> AllSemesters = db.GetAllSemesters().OrderBy(s => s.ApplicationPeriodCloses).ToList(); //creates a list of all the semesters, utilizing the method "GetAllSemesters()" found inside of the applicationDatabaseInterface.That method is as follows
+
+										public List<Semester> GetAllSemesters(){
+											return db.Semesters.ToList();
+										}
+
+List<application> StudentApplications = db.GetApplicationsForStudent(HttpContext.User.Identity.Name);//gets all of the applications for the students. This is the method that is called
+
+								public List<Application> GetApplicationsForStudent(string netId)
+								{
+												return db.Applications.Where(a => a.NetId == netId).ToList();
+														
+								}
+
+List<StudentSemesterEntry> SemestersAndApplications = AllSemesters.Select(
+	s =>
+		{
+			Application CorrespondingApplication = StudentApplications.Where(a => a.Semester == s).FirstOrDefault();
+			string ApplicationStatus = CorrespondingApplication == null ? "No application" : ((CorrespondingApplication.Submitted == true) ? "Submitted" : "In Progress");
+			bool AplicationSubmitted = CorrespondingApplication != null && CorrespondingApplication.Submitted == true;
+			return new StudentSemesterEntry()
+			{
+				SemesterId = s.ID,
+				SemesterName = s.Name,
+				AcceptingApplications = s.AcceptingApplications,
+				ApplicationPeriodStatement = s.ApplicationPeriodStatement,
+				ApplicationStatus = ApplicationStatus,
+				ApplicationSubmitted = AplicationSubmitted,
+				ApplicationId = CorrespondingApplication?.ID
+			};
+		}
+)
+.ToList();
+

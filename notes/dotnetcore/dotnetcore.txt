@@ -54,3 +54,96 @@ public static IEnumerable<Product> FilterByPrice(this IEnumerable<Product> produ
 		}
 	}
 }
+When working with razor, you bring in a model by either typing 
+
+@model namespace.folder.class
+
+or if you go into the layout that your file is using, 
+
+@using namespace.folder
+
+When an MVC application starts up, the renderer will automatically look for a _ViewStart.cshtml File. If it finds the file it will impliment parts of it for all views. This makes it so that you only have to type:
+@{
+Layout= "_BasicLayout"; 
+}
+
+Once. Meaning if I want to use a different layout then I don't have to go through and change each individual layout, I can simply change the layout listed in _ViewStart.cshtml file. 
+
+Usually you put the _ViewStart file at the top level inside of the Views folder, but the compiler will look for the closest _ViewStart file to run. IE if I am running a view inside of "Home" and there is a _ViewStart.cshtml file inside of "Home" then that file will run before any others do. 
+
+The difference between:
+
+Product Price: @($"{Model.Price:C2}")
+Product Price: $@Model.Price:C2
+
+is that the first expression will take the number of var price out 2 decimals and the second one prints "C2"
+
+The power of Razor and MVC comes from the ability to insert c# into the html. 
+<p>Stock Level: 
+	@switch (ViewBag.StockLevel)
+	{
+		case 0:
+			@:Out of Stock
+		break;
+		case 1:
+		case 2:
+		case 3:
+			<b>Low Stock (@ViewBag.StockLevel)</b>
+		break;
+		default:
+			@: @ViewBag.StockLevel in Stock
+		break;
+
+	}
+
+</p>
+
+this makes it so that the displayed content changes simply as the stock changes. On lines 86 and 94, I added @: because I am telling Razor to render literal text inside of the view.
+
+####   Nuget Packages   ####
+To edit Nuget Packages directly, Right click on the project name in the solutions explorer and click <ProjectName>.csproj.
+
+You can also use NPM inside of Visual studios. To add NPM, right click on <ProjectName> => add => New Item => Web => Scripts => npm Config file.
+This will create a package.json file. Inside the package.json file it will look like this:
+{
+	"version": "1.0.0",
+	"name": "asp.net",
+	"private": true;
+	"devDependencies": {
+
+	}
+}
+
+Inside of the "devDependencies" section you can type things like this:
+
+"devDependencies":{
+	"bootstrap": "4.3.1"
+}
+
+this will allow visual studio to auto download bootstrap from npm and install version 4.3.1 to the <projectName>/Dependencies/npm/ folder. There are multiple ways to type out the version or the "4.3.1" part:
+
+4.3.1 VS will only download 4.3.1 version
+* vs will download any version
+>3.0.0 <= 4.0.0	VS will download any version greater than 3.0 and less than 4.0
+~4.3.0 VS will download any version that is 4.3.* 
+^4.0.0 VS will download any version that is 4.*.*
+
+
+When running Code there are multiple ways that the code can be ran, allowing more dynamic development. 
+1. Start without debugging: this will allow me to make changes to the model and controller and simply refresh the page.
+
+To enable useful error pages while developing. Go into the Startup.cs page and add the following to:
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env){
+	app.UseDeveloper ExceptionPage(); //adds useful error messages
+	app.UseBrowserLink(); //adds the abilty to press ctrl + alt + enter to auto refresh the page that you are working on. 
+	app.UseStaticFiles(); //able to use with bundler
+	app.UseMvcWithDefaultRoute(); //enables mvc to work.
+}
+
+Optimizing http requests for javascript and css. Tools => extensions & Updates => online => bundler => download enables the ability to select multiple files and minimize them. This will shrink the size of the file and allow for faster http get requests.
+
+###   fully functioning application   ###
+
+IQueryable<Product> Products { get; } //an array of queryable Product called "Products"
+
